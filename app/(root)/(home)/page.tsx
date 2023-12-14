@@ -1,9 +1,7 @@
 export default function Home() {
     return (
         <div>
-            <h1 className="h1-bold">
-                Next14
-            </h1>
+            <h1 className="h1-bold">Next14</h1>
         </div>
     )
 }
