@@ -17,7 +17,7 @@ const GlobalSearch = () => {
         <Input
           type="text"
           placeholder="Search globally"
-          value={''}
+          // value={''}
           // onChange={(e) => {
           //   setSearch(e.target.value);
           //
