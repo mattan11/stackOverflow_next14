@@ -4,6 +4,7 @@ import React, { useRef } from 'react'
 
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
+import { createQuestion } from '@/lib/actions/question.action'
 
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
@@ -38,13 +39,13 @@ const Question = () => {
 
   const { isSubmitting } = form.formState
 
-  // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof QuestionsSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(), 1000)
-    })
+    try {
+      console.log(values, values)
+      await createQuestion(values)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleInputKeyDown = (
