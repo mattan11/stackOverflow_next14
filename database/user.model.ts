@@ -12,7 +12,6 @@ interface IUser extends Document {
   location?: string
   portfolioWebsite?: string
   reputation?: number
-  joinDate: Date
   saved: Schema.Types.ObjectId[]
   joindedAt: Date
 }
@@ -28,7 +27,6 @@ const userSchema: Schema = new Schema({
   location: { type: String },
   portfolioWebsite: { type: String },
   reputation: { type: Number, default: 0 },
-  joinDate: { type: Date, default: Date.now },
   saved: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
   joindedAt: { type: Date, default: Date.now },
 })

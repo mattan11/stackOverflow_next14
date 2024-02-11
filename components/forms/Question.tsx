@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { createQuestion } from '@/lib/actions/question.action'
 
 import Image from 'next/image'
+import { useRouter, usePathname } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -25,8 +26,14 @@ import {
 
 const type: any = 'Create'
 
-const Question = () => {
+type Props = {
+  mongoUserId: string
+}
+
+const Question = ({ mongoUserId }: Props) => {
   const editorRef = useRef(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -41,8 +48,14 @@ const Question = () => {
 
   const onSubmit = async (values: z.infer<typeof QuestionsSchema>) => {
     try {
-      console.log(values, values)
-      await createQuestion(values)
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      })
+
+      router.push('/')
     } catch (error) {
       console.error(error)
     }
