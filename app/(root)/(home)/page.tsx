@@ -1,41 +1,16 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import Filter from '@/components/shared/Filter'
+import NoResult from '@/components/shared/NoResult'
 import { HomePageFilters } from '@/constants/filters'
 import HomeFilters from '@/components/home/HomeFilters'
-import LocalSearchbar from '@/components/shared/search/LocalSearchbar'
-import NoResult from '@/components/shared/NoResult'
 import QuestionCard from '@/components/cards/QuestionCard'
+import { getQuestions } from '@/lib/actions/question.action'
+import LocalSearchbar from '@/components/shared/search/LocalSearchbar'
 
-// create a mock questions array based on the QuestionCard props
-const questions = [
-  {
-    _id: '1',
-    title: 'What is the best way to learn JavaScript?',
-    tags: [
-      {
-        _id: '1',
-        name: 'JavaScript',
-      },
-      {
-        _id: '2',
-        name: 'Frontend',
-      },
-    ],
-    author: {
-      _id: '1',
-      name: 'John Doe',
-      picture: '/assets/icons/avatar.svg',
-      clerkId: '1',
-    },
-    upvotes: ['1', '2'],
-    views: 1400000,
-    answers: [],
-    createdAt: new Date(),
-  },
-]
-
-export default function Home() {
+export default async function Home() {
+  const result = await getQuestions({})
+  console.log(result)
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -64,8 +39,8 @@ export default function Home() {
       <HomeFilters />
 
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {result.length > 0 ? (
+          result.map((question) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
