@@ -16,12 +16,12 @@ export async function POST(req: Request) {
 
   // Get the headers
   const headerPayload = headers()
-  const svix_id = headerPayload.get('svix-id')
-  const svix_timestamp = headerPayload.get('svix-timestamp')
-  const svix_signature = headerPayload.get('svix-signature')
+  const svixId = headerPayload.get('svix-id')
+  const svixTimestamp = headerPayload.get('svix-timestamp')
+  const svixSignature = headerPayload.get('svix-signature')
 
   // If there are no headers, error out
-  if (!svix_id || !svix_timestamp || !svix_signature) {
+  if (!svixId || !svixTimestamp || !svixSignature) {
     return new Response('Error occured -- no svix headers', {
       status: 400,
     })
@@ -39,9 +39,9 @@ export async function POST(req: Request) {
   // Verify the payload with the headers
   try {
     evt = wh.verify(body, {
-      'svix-id': svix_id,
-      'svix-timestamp': svix_timestamp,
-      'svix-signature': svix_signature,
+      'svix-id': svixId,
+      'svix-timestamp': svixTimestamp,
+      'svix-signature': svixSignature,
     }) as WebhookEvent
   } catch (err) {
     console.error('Error verifying webhook:', err)
@@ -54,31 +54,31 @@ export async function POST(req: Request) {
   const eventType = evt.type
 
   if (eventType === 'user.created') {
-    const { id, email_addresses, image_url, username, first_name, last_name } =
+    const { id, email_addresses : emailAddresses, image_url: imageUrl, username, first_name: firstName, last_name: lastName } =
       evt.data
 
     const mongoUser = await createUser({
       clerkId: id,
-      email: email_addresses[0].email_address,
-      name: `${first_name} ${last_name || ''}`,
+      email: emailAddresses[0].email_address,
+      name: `${firstName} ${lastName || ''}`,
       username: username!,
-      picture: image_url,
+      picture: imageUrl,
     })
 
     return NextResponse.json({ message: 'User created', user: mongoUser })
   }
 
   if (eventType === 'user.updated') {
-    const { id, email_addresses, image_url, username, first_name, last_name } =
+    const { id, email_addresses : emailAddresses, image_url: imageUrl, username, first_name: firstName, last_name: lastName } =
       evt.data
 
     const mongoUser = await updateUser({
       clerkId: id,
       updateData: {
-        email: email_addresses[0].email_address,
-        name: `${first_name} ${last_name || ''}`,
+        email: emailAddresses[0].email_address,
+        name: `${firstName} ${lastName || ''}`,
         username: username!,
-        picture: image_url,
+        picture: imageUrl,
       },
       path: `profile/${id}`,
     })

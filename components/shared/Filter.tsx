@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import {
   Select,
   SelectContent,
@@ -26,7 +26,7 @@ const Filter = ({
   ...rest
 }: Props) => {
   const searchParams = useSearchParams()
-  const router = useRouter()
+  // const router = useRouter()
 
   const paramFilter = searchParams.get('filter')
 
