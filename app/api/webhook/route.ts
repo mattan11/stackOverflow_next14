@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
+  const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -53,9 +53,17 @@ export async function POST(req: Request) {
   // Get the ID and type
   const eventType = evt.type
 
+  console.log(eventType, 'eventType')
+
   if (eventType === 'user.created') {
-    const { id, email_addresses : emailAddresses, image_url: imageUrl, username, first_name: firstName, last_name: lastName } =
-      evt.data
+    const {
+      id,
+      email_addresses: emailAddresses,
+      image_url: imageUrl,
+      username,
+      first_name: firstName,
+      last_name: lastName,
+    } = evt.data
 
     const mongoUser = await createUser({
       clerkId: id,
@@ -69,8 +77,14 @@ export async function POST(req: Request) {
   }
 
   if (eventType === 'user.updated') {
-    const { id, email_addresses : emailAddresses, image_url: imageUrl, username, first_name: firstName, last_name: lastName } =
-      evt.data
+    const {
+      id,
+      email_addresses: emailAddresses,
+      image_url: imageUrl,
+      username,
+      first_name: firstName,
+      last_name: lastName,
+    } = evt.data
 
     const mongoUser = await updateUser({
       clerkId: id,
