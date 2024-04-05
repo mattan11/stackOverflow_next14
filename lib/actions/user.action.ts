@@ -14,7 +14,7 @@ import {
 
 export async function getUserById(params: any) {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     const { userId } = params
 
@@ -29,7 +29,7 @@ export async function getUserById(params: any) {
 
 export async function createUser(userData: CreateUserParams) {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     const newUser = await User.create(userData)
 
@@ -42,7 +42,7 @@ export async function createUser(userData: CreateUserParams) {
 
 export async function updateUser(params: UpdateUserParams) {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     const { clerkId, updateData, path } = params
 
@@ -57,7 +57,7 @@ export async function updateUser(params: UpdateUserParams) {
 
 export async function deleteUser(params: DeleteUserParams) {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     const { clerkId } = params
 
@@ -86,7 +86,7 @@ export async function deleteUser(params: DeleteUserParams) {
 
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     // const { page = 1, pageSize = 20, filter, searchQuery } = params
 

@@ -12,7 +12,7 @@ import { revalidatePath } from 'next/cache'
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     const questions = await Question.find({})
       .populate({ path: 'tags', model: Tag })
@@ -28,7 +28,7 @@ export async function getQuestions(params: GetQuestionsParams) {
 
 export async function createQuestion(params: CreateQuestionParams) {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     const { title, content, tags, author, path } = params
 
