@@ -1,4 +1,4 @@
-import {z} from 'zod'
+import { z } from 'zod'
 
 export const TAG_MAX_LENGTH = 15
 
@@ -9,7 +9,7 @@ export const QuestionsSchema = z.object({
 })
 
 export const AnswerSchema = z.object({
-  answer: z.string().min(100)
+  answer: z.string().min(100),
 })
 
 export const ProfileSchema = z.object({

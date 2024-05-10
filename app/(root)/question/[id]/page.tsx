@@ -1,15 +1,16 @@
 import React from 'react'
-import {getQuestionById} from '@/lib/actions/question.action'
+import { getQuestionById } from '@/lib/actions/question.action'
 import Link from 'next/link'
 import Image from 'next/image'
 import Metric from '@/components/shared/Metric'
-import {formatAndDivideNumber, getTimestamp} from '@/lib/utils'
+import { formatAndDivideNumber, getTimestamp } from '@/lib/utils'
 import RenderTag from '@/components/shared/RenderTag'
 import ParseHTML from '@/components/shared/ParseHTML'
 import Answer from '@/components/forms/Answer'
-import {auth} from "@clerk/nextjs";
-import {getUserById} from "@/lib/actions/user.action";
-import AllAnswers from "@/components/shared/AllAnswers";
+import { auth } from '@clerk/nextjs'
+import { getUserById } from '@/lib/actions/user.action'
+import AllAnswers from '@/components/shared/AllAnswers'
+import Votes from '@/components/shared/Votes'
 
 type QuestionPageProps = {
   params: {
@@ -18,14 +19,14 @@ type QuestionPageProps = {
   searchParams: string
 }
 
-const QuestionPage = async ({params, searchParams}: QuestionPageProps) => {
-  const result = await getQuestionById({questionId: params.id})
-  const {userId: clerkId} = auth()
+const QuestionPage = async ({ params, searchParams }: QuestionPageProps) => {
+  const result = await getQuestionById({ questionId: params.id })
+  const { userId: clerkId } = auth()
 
   let mongoUser
 
   if (clerkId) {
-    mongoUser = await getUserById({userId: clerkId})
+    mongoUser = await getUserById({ userId: clerkId })
   }
 
   return (
@@ -48,16 +49,16 @@ const QuestionPage = async ({params, searchParams}: QuestionPageProps) => {
             </p>
           </Link>
           <div className="flex justify-end">
-            {/*<Votes*/}
-            {/*  type="Question"*/}
-            {/*  itemId={JSON.stringify(result._id)}*/}
-            {/*  userId={JSON.stringify(mongoUser._id)}*/}
-            {/*  upvotes={result.upvotes.length}*/}
-            {/*  hasupVoted={result.upvotes.includes(mongoUser._id)}*/}
-            {/*  downvotes={result.downvotes.length}*/}
-            {/*  hasdownVoted={result.downvotes.includes(mongoUser._id)}*/}
-            {/*  hasSaved={mongoUser?.saved.includes(result._id)}*/}
-            {/*/>*/}
+            <Votes
+              type="Question"
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              upvotes={result.upvotes.length}
+              hasupVoted={result.upvotes.includes(mongoUser._id)}
+              downvotes={result.downvotes.length}
+              hasdownVoted={result.downvotes.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(result._id)}
+            />
           </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
@@ -89,7 +90,7 @@ const QuestionPage = async ({params, searchParams}: QuestionPageProps) => {
         />
       </div>
 
-      <ParseHTML data={result.content}/>
+      <ParseHTML data={result.content} />
 
       <div className="mt-8 flex flex-wrap gap-2">
         {result.tags.map((tag: any) => (

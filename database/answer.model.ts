@@ -1,4 +1,4 @@
-import {model, models, Schema} from "mongoose";
+import { model, models, Schema } from 'mongoose'
 
 // export interface IAnswer extends Document {
 //   author: Schema.Types.ObjectId;
@@ -12,12 +12,12 @@ import {model, models, Schema} from "mongoose";
 const AnswerSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   question: {
     type: Schema.Types.ObjectId,
-    ref: "Question",
+    ref: 'Question',
     required: true,
   },
   content: {
@@ -27,21 +27,21 @@ const AnswerSchema = new Schema({
   upvotes: [
     {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
   ],
   downvotes: [
     {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
   ],
   createdAt: {
     type: Date,
     default: Date.now,
   },
-});
+})
 
-const Answer = models.Answer || model("Answer", AnswerSchema);
+const Answer = models.Answer || model('Answer', AnswerSchema)
 
-export default Answer;
+export default Answer
