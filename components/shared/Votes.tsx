@@ -7,6 +7,7 @@ import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
 import { formatAndDivideNumber } from '@/lib/utils'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
+import { toggleSaveQuestion } from '@/lib/actions/user.action'
 
 // import { toast } from "../ui/use-toast";
 
@@ -32,18 +33,14 @@ const Votes = ({
   hasSaved,
 }: Props) => {
   const pathname = usePathname()
-  const router = useRouter()
-
-  console.log(upvotes, 'upvotes')
-  console.log(downvotes, 'downvotes')
+  // const router = useRouter()
 
   const handleSave = async () => {
-    console.log('save')
-    // await toggleSaveQuestion({
-    //   userId: JSON.parse(userId),
-    //   questionId: JSON.parse(itemId),
-    //   path: pathname,
-    // })
+    await toggleSaveQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname,
+    })
     //
     // return toast({
     //   title: `Question ${!hasSaved ? 'Saved in' : 'Removed from'} your collection`,
