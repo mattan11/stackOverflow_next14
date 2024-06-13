@@ -200,3 +200,20 @@ export async function editQuestion(params: EditQuestionParams) {
     console.log(error)
   }
 }
+
+export async function getHotQuestions() {
+  try {
+    await connectToDatabase()
+
+    const questions = await Question.find({})
+      .populate({ path: 'tags', model: Tag })
+      .populate({ path: 'author', model: User })
+      .sort({ views: -1, upvotes: -1 })
+      .limit(5)
+
+    return questions
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}

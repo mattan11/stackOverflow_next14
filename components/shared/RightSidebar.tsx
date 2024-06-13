@@ -1,49 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import RenderTag from '@/components/shared/RenderTag'
+import { getHotQuestions } from '@/lib/actions/question.action'
+import { getHotTags } from '@/lib/actions/tag.actions'
 
-const RightSidebar = () => {
-  const hotQuestions = [
-    {
-      _id: '1',
-      title: 'What is the difference between a language and a framework?',
-    },
-    {
-      _id: '2',
-      title: 'What is the difference between a language and a framework?',
-    },
-    {
-      _id: '3',
-      title: 'What is the difference between a language and a framework?',
-    },
-    {
-      _id: '4',
-      title: 'What is the difference between a language and a framework?',
-    },
-  ]
-
-  const popularTags = [
-    {
-      _id: '1',
-      name: 'test',
-      numberOfQuestions: 10,
-    },
-    {
-      _id: '2',
-      name: 'dfas',
-      numberOfQuestions: 3,
-    },
-    {
-      _id: '3',
-      name: 'fdasd',
-      numberOfQuestions: 5,
-    },
-    {
-      _id: '4',
-      name: 'php',
-      numberOfQuestions: 7,
-    },
-  ]
+const RightSidebar = async () => {
+  const hotQuestions = await getHotQuestions()
+  const hotTags = await getHotTags()
 
   return (
     <section className="background-light900_dark200 light-border custom-scrollbar sticky right-0 top-0 flex h-screen w-[350px] flex-col overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden">
@@ -73,7 +36,7 @@ const RightSidebar = () => {
       <div className="mt-16">
         <h3 className="h3-bold text-dark200_light900">Popular Tags</h3>
         <div className="mt-7 flex flex-col gap-4">
-          {popularTags.map((tag) => (
+          {hotTags.map((tag) => (
             <RenderTag
               key={tag._id}
               _id={tag._id}
