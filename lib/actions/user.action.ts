@@ -244,7 +244,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
       totalQuestions,
       totalAnswers,
       // badgeCounts,
-      // reputation: user.reputation,
+      reputation: user.reputation,
     }
   } catch (error) {
     console.log(error)
