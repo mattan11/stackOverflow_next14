@@ -6,7 +6,7 @@ import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
 // import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { formatAndDivideNumber } from '@/lib/utils'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { toggleSaveQuestion } from '@/lib/actions/user.action'
 
 // import { toast } from "../ui/use-toast";
@@ -100,7 +100,7 @@ const Votes = ({
         })
       }
 
-      return
+      // return
       // return toast({
       //   title: `Downvote ${!hasupVoted ? 'Successful' : 'Removed'}`,
       //   variant: !hasupVoted ? 'default' : 'destructive'

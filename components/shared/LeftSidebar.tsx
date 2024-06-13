@@ -3,7 +3,6 @@
 import React from 'react'
 import { sidebarLinks } from '@/constants'
 import { usePathname } from 'next/navigation'
-import SidebarItem from '@/components/shared/SidebarItem'
 import { SignedOut, useAuth } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'

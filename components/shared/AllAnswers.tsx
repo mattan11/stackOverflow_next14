@@ -80,12 +80,12 @@ const AllAnswers = async ({
         ))}
       </div>
 
-      {/*<div className="mt-10 w-full">*/}
-      {/*  <Pagination*/}
-      {/*    pageNumber={page ? +page : 1}*/}
-      {/*    isNext={result.isNextAnswer}*/}
-      {/*  />*/}
-      {/*</div>*/}
+      {/* <div className="mt-10 w-full"> */}
+      {/*  <Pagination */}
+      {/*    pageNumber={page ? +page : 1} */}
+      {/*    isNext={result.isNextAnswer} */}
+      {/*  /> */}
+      {/* </div> */}
     </div>
   )
 }
