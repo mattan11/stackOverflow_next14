@@ -64,11 +64,11 @@ export const getJoinedDate = (date: Date): string => {
   return joinedDate
 }
 
-interface UrlQueryParams {
-  params: string
-  key: string
-  value: string | null
-}
+// interface UrlQueryParams {
+//   params: string
+//   key: string
+//   value: string | null
+// }
 
 // export const formUrlQuery = ({ params, key, value}: UrlQueryParams) => {
 //   const currentUrl = qs.parse(params);
