@@ -7,8 +7,9 @@ import {
 } from '@/lib/actions/shared.types'
 import { connectToDatabase } from '@/lib/mongoose'
 import User from '@/database/user.model'
-import Tag, { ITag } from '@/database/tag.model'
-import { FilterQuery } from 'mongoose'
+import Tag from '@/database/tag.model'
+import type { FilterQuery } from 'mongoose'
+import type { ITag } from '@/database/tag.model'
 import Question from '@/database/question.model'
 
 export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
@@ -38,7 +39,15 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     await connectToDatabase()
 
-    const tags = await Tag.find({})
+    const { searchQuery } = params
+
+    const query: FilterQuery<ITag> = {}
+
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
+    }
+
+    const tags = await Tag.find(query)
 
     return { tags }
   } catch (error) {
