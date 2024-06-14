@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
   Select,
   SelectContent,
@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { formUrlQuery } from '@/lib/utils'
 
 interface Props {
   filters: {
@@ -26,19 +27,18 @@ const Filter = ({
   ...rest
 }: Props) => {
   const searchParams = useSearchParams()
-  // const router = useRouter()
+  const router = useRouter()
 
   const paramFilter = searchParams.get('filter')
 
   const handleUpdateParams = (value: string) => {
-    console.log(value)
-    //   const newUrl = formUrlQuery({
-    //     params: searchParams.toString(),
-    //     key: 'filter',
-    //     value
-    //   })
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: 'filter',
+      value,
+    })
 
-    //   router.push(newUrl, { scroll: false })
+    router.push(newUrl, { scroll: false })
   }
 
   return (
