@@ -16,7 +16,7 @@ type QuestionPageProps = {
   params: {
     id: string
   }
-  searchParams: string
+  searchParams: any
 }
 
 const QuestionPage = async ({ params, searchParams }: QuestionPageProps) => {
@@ -107,8 +107,8 @@ const QuestionPage = async ({ params, searchParams }: QuestionPageProps) => {
         questionId={result._id}
         userId={mongoUser._id}
         totalAnswers={result.answers.length}
-        // page={searchParams?.page}
-        // filter={searchParams?.filter}
+        page={searchParams?.page}
+        filter={searchParams?.filter}
       />
 
       <Answer
