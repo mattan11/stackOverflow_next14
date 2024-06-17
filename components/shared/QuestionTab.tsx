@@ -3,7 +3,6 @@ import { SearchParamsProps } from '@/types'
 import React from 'react'
 import QuestionCard from '../cards/QuestionCard'
 import Pagination from '@/components/shared/Pagination'
-// import Pagination from './Pagination';
 
 interface Props extends SearchParamsProps {
   userId: string
