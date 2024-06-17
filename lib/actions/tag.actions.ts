@@ -39,7 +39,9 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     await connectToDatabase()
 
-    const { searchQuery, filter } = params
+    const { searchQuery, filter, page = 1, pageSize = 20 } = params
+
+    const skipAmount = (page - 1) * pageSize
 
     const query: FilterQuery<ITag> = {}
 
@@ -48,6 +50,11 @@ export async function getAllTags(params: GetAllTagsParams) {
     }
 
     let sortOptions = {}
+
+    const tags = await Tag.find(query)
+      .sort(sortOptions)
+      .skip(skipAmount)
+      .limit(pageSize)
 
     switch (filter) {
       case 'popular':
@@ -67,9 +74,10 @@ export async function getAllTags(params: GetAllTagsParams) {
         break
     }
 
-    const tags = await Tag.find(query).sort(sortOptions)
+    const totalTags = await Tag.countDocuments(query)
+    const isNext = totalTags > skipAmount + pageSize
 
-    return { tags }
+    return { tags, isNext }
   } catch (error) {
     console.error(error)
     throw error
@@ -80,7 +88,7 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
   try {
     connectToDatabase()
 
-    const { tagId, page = 1, pageSize = 10, searchQuery } = params
+    const { tagId, page = 1, pageSize = 20, searchQuery } = params
     const skipAmount = (page - 1) * pageSize
 
     const tagFilter: FilterQuery<ITag> = { _id: tagId }
