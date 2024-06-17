@@ -10,6 +10,14 @@ import LocalSearchbar from '@/components/shared/search/LocalSearchbar'
 import { SearchParamsProps } from '@/types'
 import Pagination from '@/components/shared/Pagination'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Home | Dev Overflow',
+  description:
+    'Dev Overflow is a community of developers helping each other. Join us and ask your questions!',
+}
+
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({
     searchQuery: searchParams.q,
