@@ -85,12 +85,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
         reputation={userInfo?.reputation || 0}
         totalQuestions={userInfo.totalQuestions}
         totalAnswers={userInfo.totalAnswers}
-        // badges={userInfo.badgeCounts}
-        badges={{
-          GOLD: 20,
-          SILVER: 30,
-          BRONZE: 40,
-        }}
+        badges={userInfo.badgeCounts}
       />
 
       <div className="mt-10 flex gap-10">
