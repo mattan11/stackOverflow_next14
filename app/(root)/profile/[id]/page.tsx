@@ -82,8 +82,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
       </div>
 
       <Stats
-        // reputation={userInfo?.reputation || 200}
-        reputation={200}
+        reputation={userInfo?.reputation || 0}
         totalQuestions={userInfo.totalQuestions}
         totalAnswers={userInfo.totalAnswers}
         // badges={userInfo.badgeCounts}
