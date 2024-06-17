@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import GlobalFilters from './GlobalFilters'
-// import { globalSearch } from '@/lib/actions/general.action'
+import { globalSearch } from '@/lib/actions/general.action'
 
 export const GlobalResultTypes = {
   question: 'question',
@@ -17,7 +17,7 @@ export const GlobalResultTypes = {
 
 const GlobalResult = () => {
   const searchParams = useSearchParams()
-  const global = searchParams.get('qlobal')
+  const global = searchParams.get('global')
   const type = searchParams.get('type')
 
   const [isLoading, setIsLoading] = React.useState(false)
@@ -29,17 +29,25 @@ const GlobalResult = () => {
   ])
 
   useEffect(() => {
-    const fetchData = async () => {
+    console.log('global')
+    const fetchResult = async () => {
       setResult([])
       setIsLoading(true)
 
       try {
+        const res = await globalSearch({ query: global, type })
+
+        setResult(JSON.parse(res))
       } catch (error) {
-        console.log(error, 'error')
+        console.error(error)
         throw error
       } finally {
         setIsLoading(false)
       }
+    }
+
+    if (global) {
+      fetchResult()
     }
   }, [global, type])
 
