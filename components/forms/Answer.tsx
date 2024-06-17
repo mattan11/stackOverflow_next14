@@ -98,7 +98,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         {/* <Button */}
         {/*  className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500" */}
         {/*  onClick={generateAIAnswer} */}
-        {/* >*/}
+        {/* > */}
         {/*  {isSubmittingAI ? ( */}
         {/*    <>Generating...</> */}
         {/*  ) : ( */}
@@ -109,10 +109,10 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         {/*        width={12} */}
         {/*        height={12} */}
         {/*        className="object-contain" */}
-        {/*      />*/}
+        {/*      /> */}
         {/*      Generate AI Answer */}
-        {/*    </>*/}
-        {/*  )}*/}
+        {/*    </> */}
+        {/*  )} */}
         {/* </Button> */}
       </div>
 
